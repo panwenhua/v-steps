@@ -1,24 +1,42 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Steps :current="current" :stepsList="stepsList" @onStepClick="onStepClick">
+      <template #step="{ title, current }">
+        <span>{{icon[current-1]}}</span>
+        <span>第{{current}}步骤:</span>
+        {{ title }}
+      </template>
+    </Steps>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Steps from "./components/Steps.vue";
 
 export default {
-  name: 'app',
+  name: "app",
+  data() {
+    return {
+      current: 1,
+      icon: ["😄", "🙂", "🔫", "😃", "😭"],
+      stepsList: ["step1", "step2", "step3", "step4", "step5"]
+    };
+  },
+  methods: {
+    onStepClick(index) {
+      this.current = index;
+    }
+  },
   components: {
-    HelloWorld
+    Steps
   }
-}
+};
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
